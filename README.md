@@ -10,7 +10,13 @@
 
 Behavior | Input | Ouput
 ------------ | ------------- | -------------
-
+It should have a food level of 10 to start
+It should have a food level of 9 after 2001 milliseconds
+It should get very hungry if drops to 0
+It should get very hungry if 20 seconds pass without feeding
+It should have a food level of 10 if fed
+The food level should go up depending on what tama eats
+the food level should go down if tama eats something gross
 
 ## Setup/Installation Requirements
 
