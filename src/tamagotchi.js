@@ -5,7 +5,7 @@ export let tamagotchi = {
       this.foodLevel --;
       if(this.areYouDead() == true) {
         clearInterval(hungerInterval);
-        return "Oh no, you died!"
+        return "Oh no, your tamagotchi died!"
       }
     }, 2000);
   },
@@ -18,11 +18,50 @@ export let tamagotchi = {
   },
   feed: function(amount) {
     let that = this;
-      return function(food) {
+    return function(food) {
       that.foodLevel += amount
-      return `Your tamagotchi ate ${food}, her food level goes up ${amount}!`
+      return `Your tamagotchi ate ${food}, her food level changes by ${amount}!`
+    }
+  },
+  cleanLevel: 10,
+  setClean: function() {
+    const cleanInterval = setInterval(() => {
+      this.cleanLevel --;
+      if(this.tooMessy() == true) {
+        clearInterval(cleanInterval);
+        return "Oh no, your tamagotchi is too messy to play!"
+      }
+    }, 5000);
+  },
+  tooMessy: function() {
+    if(this.cleanLevel > 0) {
+      return false;
+    } else {
+      return true;
+    }
+  },
+  clean: function() {
+    this.cleanLevel = 10;
+  },
+  affectionLevel: 10,
+  setAffection: function() {
+    const affectionInterval = setInterval(() => {
+    this.affectionLevel --;
+    if(this.noLove()== true) {
+      clearInterval(affectionInterval);
+      return "Oh no, your tamagotchi is too sad to play!"
+    }
+  }, 5000);
+},
+  noLove: function() {
+    if(this.affectionLevel > 0) {
+      return false;
+    } else {
+      return true;
     }
   }
-
 };
-  tamagotchi.eatSmall = tamagotchi.feed(5);
+tamagotchi.eatSmall = tamagotchi.feed(5);
+tamagotchi.eatMedium = tamagotchi.feed(10);
+tamagotchi.eatLarge = tamagotchi.feed(15);
+tamagotchi.eatGross = tamagotchi.feed(-5);

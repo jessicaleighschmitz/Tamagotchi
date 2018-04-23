@@ -5,6 +5,8 @@ describe('tamagotchi', function(){
   beforeEach(function() {
     jasmine.clock().install();
     tama.foodLevel = 10;
+    tama.cleanLevel = 10;
+    tama.affectionLevel = 10;
     tama.name = "Ben";
     tama.setHunger();
   });
@@ -30,7 +32,38 @@ describe('tamagotchi', function(){
     expect(tama.areYouDead()).toBe(true);
   });
   it('should have an increased food level if Tama eats cherries', function(){
-    expect(tama.eatSmall("cherries")).toEqual("Your tamagotchi ate cherries, her food level goes up 5!")
+    expect(tama.eatSmall("cherries")).toEqual("Your tamagotchi ate cherries, her food level changes by 5!");
     expect(tama.foodLevel).toEqual(15);
+  });
+  it('should have an increased food level if Tama eats pie', function(){
+    expect(tama.eatMedium("pie")).toEqual("Your tamagotchi ate pie, her food level changes by 10!");
+    expect(tama.foodLevel).toEqual(20);
+  });
+  it("should have an increased food level if your tamagotchi eats a mega-burrito!", function(){
+    expect(tama.eatLarge("mega-burrito")).toEqual("Your tamagotchi ate mega-burrito, her food level changes by 15!");
+    expect(tama.foodLevel).toEqual(25);
+  });
+  it("should have a decreased food level if your tamagotchi eats something gross", function(){
+    expect(tama.eatGross("haggis")).toEqual("Your tamagotchi ate haggis, her food level changes by -5!");
+    expect(tama.foodLevel).toEqual(5);
+  });
+  it('should have a clean level of 10 when created.', function(){
+    expect(tama.cleanLevel).toEqual(10);
+  });
+  it('should have a room too messy to play when clean level is 0', function(){
+    tama.cleanLevel = 0;
+    expect(tama.tooMessy()).toBe(true);
+  });
+  it('should have a clean level of 10 when cleaned', function(){
+    jasmine.clock().tick(5001);
+    tama.clean();
+    expect(tama.cleanLevel).toEqual(10);
+  });
+  it('should have a affection level of 10 when created', function(){
+    expect(tama.affectionLevel).toEqual(10);
+  });
+  it('should cry if affection level is 0', function(){
+    tama.affectionLevel = 0;
+    expect(tama.noLove()).toBe(true);
   });
 });
