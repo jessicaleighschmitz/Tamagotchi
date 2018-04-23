@@ -19,8 +19,8 @@ export let tamagotchi = {
   feed: function(amount) {
     let that = this;
     return function(food) {
-      that.foodLevel += amount
-      return `Your tamagotchi ate ${food}, her food level changes by ${amount}!`
+      that.foodLevel += amount;
+      return `Your tamagotchi ate ${food}, her food level changes by ${amount}!`;
     }
   },
   cleanLevel: 10,
@@ -46,22 +46,52 @@ export let tamagotchi = {
   affectionLevel: 10,
   setAffection: function() {
     const affectionInterval = setInterval(() => {
-    this.affectionLevel --;
-    if(this.noLove()== true) {
-      clearInterval(affectionInterval);
-      return "Oh no, your tamagotchi is too sad to play!"
-    }
-  }, 5000);
-},
+      this.affectionLevel --;
+      if(this.noLove()== true) {
+        clearInterval(affectionInterval);
+        return "Oh no, your tamagotchi is too sad to play!"
+      }
+    }, 5000);
+  },
   noLove: function() {
     if(this.affectionLevel > 0) {
       return false;
     } else {
       return true;
     }
+  },
+  love: function() {
+    this.affectionLevel = 10;
+  },
+  sleepLevel: 10,
+  setSleep: function() {
+    const sleepInterval = setInterval(() => {
+      this.sleepLevel--;
+      if(this.tooTired() == true) {
+        clearInterval(sleepInterval);
+        return "Oh no, your tamagotchi is too tired to play!"
+      }
+    }, 10000);
+  },
+  tooTired: function() {
+    if(this.sleepLevel > 0) {
+      return false;
+    } else {
+      return true;
+    }
+  },
+  sleep: function(amount) {
+    let that = this;
+    return function(type){
+      that.sleepLevel += amount;
+      return `Your tamagotchi ${type}, her sleep level changes by ${amount}!`;
+    }
+
   }
 };
 tamagotchi.eatSmall = tamagotchi.feed(5);
 tamagotchi.eatMedium = tamagotchi.feed(10);
 tamagotchi.eatLarge = tamagotchi.feed(15);
 tamagotchi.eatGross = tamagotchi.feed(-5);
+tamagotchi.nap = tamagotchi.sleep(2);
+tamagotchi.longNap = tamagotchi.sleep(5);

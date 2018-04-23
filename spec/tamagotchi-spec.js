@@ -7,6 +7,7 @@ describe('tamagotchi', function(){
     tama.foodLevel = 10;
     tama.cleanLevel = 10;
     tama.affectionLevel = 10;
+    tama.sleepLevel = 10;
     tama.name = "Ben";
     tama.setHunger();
   });
@@ -65,5 +66,20 @@ describe('tamagotchi', function(){
   it('should cry if affection level is 0', function(){
     tama.affectionLevel = 0;
     expect(tama.noLove()).toBe(true);
+  });
+  it('should have a sleep level of 10 when created', function(){
+    expect(tama.sleepLevel).toEqual(10);
+  });
+  it('should be too tired to play if sleep level is 0', function(){
+    tama.sleepLevel = 0;
+    expect(tama.tooTired()).toBe(true);
+  });
+  it('should have an increased sleep level if tamagotchi naps', function(){
+    expect(tama.nap("napped")).toEqual("Your tamagotchi napped, her sleep level changes by 2!");
+    expect(tama.sleepLevel).toEqual(12);
+  });
+  it('should have an increased sleep level if tamagotchi takes a long nap', function(){
+    expect(tama.longNap("slept")).toEqual("Your tamagotchi slept, her sleep level changes by 5!");
+    expect(tama.sleepLevel).toEqual(15);
   });
 });
