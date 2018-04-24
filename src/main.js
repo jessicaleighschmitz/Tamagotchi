@@ -6,78 +6,84 @@ import './api-call.js';
 import {hungry} from './api-call.js'
 import { tamagotchi } from './tamagotchi.js';
 
+function updateTama(tama){
+  tama.foodLevel = 10;
+  tama.sleepLevel = 10;
+  tama.affectionLevel = 10;
+  tama.cleanLevel = 10;
+}
 
+function updateCounter(tama) {
+   setInterval(() => {
+    $('#hunger').text(tama.foodLevel);
+    $('#sleep').text(tama.sleepLevel);
+    $('#clean').text(tama.cleanLevel);
+    $('#love').text(tama.affectionLevel);
+
+    if(tama.foodLevel < 3 && tama.foodLevel > 0){
+      $('#text2').text('Feed your tamagotchi before she gets hangry!');
+      $("#tamagotchi").hide();
+      $('#gifHunger').show();
+
+    } else if(tama.foodLevel > 3){
+      $('#text2').text("Good job, keep her happy");
+      $('#tamagotchi').show();
+      $('#gifHunger').hide();
+    }
+
+    if(tama.cleanLevel < 3 && tama.cleanLevel > 0){
+      $('#tamagotchi').hide();
+      $('#gifClean').show();
+      $('#text3').text('Clean your tamagotchis room before she cannot play anymore!');
+    } else if(tama.cleanLevel > 3){
+      $('#text3').empty();
+      $('#tamagotchi').show();
+      $('#gifClean').hide();
+    }
+
+    if(tama.affectionLevel < 3 && tama.affectionLevel > 0){
+      $('#tamagotchi').hide();
+      $('#gifAffection').show();
+      $('#text4').text('Show love to your tamagotchi before she is too sad to play!');
+    } else if(tama.affectionLevel > 3){
+      $('#tamagotchi').show();
+      $('#gifAffection').hide();
+      $('#text4').empty();
+    }
+
+    if(tama.sleepLevel < 3 && tama.sleepLevel > 0) {
+      $('#tamagotchi').hide();
+      $('#gifSleepy').show();
+      $('#text5').text('Send your tamagotchi to bed before she grumpy!');
+    } else if(tama.sleepLevel > 3){
+      $('#text5').empty();
+      $('#gifSleepy').hide();
+      $('#tamagotchi').show();
+    }
+
+    if(tama.areYouDead()|| tama.tooMessy() || tama.noLove() || tama.tooTired()) {
+      $('#text').text('GAME OVER');
+      $(".gifs").hide();
+      $('#playAgain').show();
+      $('#play').hide();
+    }
+  }, 1000)
+}
 $(document).ready(function(){
-
-
   let tama = tamagotchi;
   tama.setHunger();
   tama.setClean();
   tama.setAffection();
   tama.setSleep();
   $('#play').click(function(){
-    const updateCounter = setInterval(() => {
-      $('#hunger').text(tama.foodLevel);
-      $('#sleep').text(tama.sleepLevel);
-      $('#clean').text(tama.cleanLevel);
-      $('#love').text(tama.affectionLevel);
+    updateCounter(tama);
 
-      if(tama.foodLevel < 3 && tama.foodLevel > 0){
-        $('#text2').text('Feed your tamagotchi before she gets hangry!');
-        $("#tamagotchi").hide();
-        $('#gifHunger').show();
-
-      } else if(tama.foodLevel > 3){
-        $('#text2').text("Good job, keep her happy");
-        $('#tamagotchi').show();
-        $('#gifHunger').hide();
-      }
-
-      if(tama.cleanLevel < 3 && tama.cleanLevel > 0){
-        $('#tamagotchi').hide();
-        $('#gifClean').show();
-        $('#text3').text('Clean your tamagotchis room before she cannot play anymore!');
-      } else if(tama.cleanLevel > 3){
-        $('#text3').empty();
-        $('#tamagotchi').show();
-        $('#gifClean').hide();
-      }
-
-      if(tama.affectionLevel < 3 && tama.affectionLevel > 0){
-        $('#tamagotchi').hide();
-        $('#gifAffection').show();
-        $('#text4').text('Show love to your tamagotchi before she is too sad to play!');
-      } else if(tama.affectionLevel > 3){
-        $('#tamagotchi').show();
-        $('#gifAffection').hide();
-        $('#text4').empty();
-      }
-
-      if(tama.sleepLevel < 3 && tama.sleepLevel > 0) {
-        $('#tamagotchi').hide();
-        $('#gifSleepy').show();
-        $('#text5').text('Send your tamagotchi to bed before she grumpy!');
-      } else if(tama.sleepLevel > 3){
-        $('#text5').empty();
-        $('#gifSleepy').hide();
-        $('#tamagotchi').show();
-      }
-
-      if(tama.areYouDead()){
-        $('#text').text('GAME OVER');
-      }
-      if(tama.tooMessy()){
-        $('#text').text('GAME OVER');
-      }
-      if(tama.noLove()){
-        $('#text').text('GAME OVER');
-      }
-      if(tama.tooTired()){
-        $('#text').text('GAME OVER');
-      }
-    }, 1000);
-
-  })
+    $('#playAgain').click(function(){
+      updateTama(tama);
+      updateCounter(tama);
+      $('.gifs').show();
+    });
+  }),
 
 
 

@@ -4,7 +4,6 @@ export let tamagotchi = {
     const hungerInterval = setInterval(() => {
       this.foodLevel --;
       if(this.areYouDead() == true) {
-        clearInterval(hungerInterval);
         return "Oh no, your tamagotchi died!"
       }
     }, 2000);
@@ -28,7 +27,6 @@ export let tamagotchi = {
     const cleanInterval = setInterval(() => {
       this.cleanLevel --;
       if(this.tooMessy() == true) {
-        clearInterval(cleanInterval);
         return "Oh no, your tamagotchi is too messy to play!"
       }
     }, 5000);
@@ -48,7 +46,6 @@ export let tamagotchi = {
     const affectionInterval = setInterval(() => {
       this.affectionLevel --;
       if(this.noLove()== true) {
-        clearInterval(affectionInterval);
         return "Oh no, your tamagotchi is too sad to play!"
       }
     }, 5000);
@@ -68,7 +65,6 @@ export let tamagotchi = {
     const sleepInterval = setInterval(() => {
       this.sleepLevel--;
       if(this.tooTired() == true) {
-        clearInterval(sleepInterval);
         return "Oh no, your tamagotchi is too tired to play!"
       }
     }, 10000);
