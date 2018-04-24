@@ -2,10 +2,13 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
 import $ from 'jquery';
+import './api-call.js';
 import { tamagotchi } from './tamagotchi.js';
 
 
 $(document).ready(function(){
+
+
   let tama = tamagotchi;
   tama.setHunger();
   tama.setClean();
@@ -64,7 +67,6 @@ $(document).ready(function(){
     if(e.keyCode === 32) {
       //medium feed, spacebar
       tama.eatMedium();
-      console.log(tama.foodLevel);
       $('#hunger').text(tama.foodLevel);
     } else if(e.keyCode === 65) {
       //small feed, a
